@@ -88,7 +88,6 @@ except KeyboardInterrupt:
     print("\n[!] Stopping capture...")
 
 finally:
-    # ALWAYS runs (this is the key fix)
     if captured_packets_list:
         wrpcap("codealpha_capture.pcap", captured_packets_list)
 
