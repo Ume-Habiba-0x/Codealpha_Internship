@@ -1,4 +1,4 @@
- # Network Packet Sniffer
+# Network Packet Sniffer
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue?style=flat-square&logo=python)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
@@ -44,14 +44,6 @@ Captures live packets, extracts metadata, analyzes payload content, and exports 
 
 ---
 
-## Limitations & Security Considerations
-
-- HTTPS traffic cannot be decrypted due to TLS encryption
-- Requires elevated privileges to access raw packets
-- In switched networks, only traffic associated with the host is visible
-- Packet storage in memory may not scale for long captures
-- IPv6 traffic handling is not included in current version
-
 ## Tech Stack
 
 | Tool | Purpose |
@@ -73,7 +65,27 @@ Each packet is parsed to extract:
 - Protocol type
 - Payload (if accessible)
 
-Stop capture with `CTRL+C`.
+---
+
+## Usage
+
+**Requirements**
+
+```bash
+pip install scapy rich
+```
+
+**Run** (requires root — packet capture needs elevated privileges)
+
+```bash
+sudo python3 networksniffer.py
+```
+
+Stop capture with `CTRL+C` — stats and PCAP file are saved automatically.
+
+**Output**
+- Live JSON packet output in terminal
+- `codealpha_capture.pcap` saved to current directory for Wireshark analysis
 
 ---
 
@@ -95,11 +107,49 @@ Stop capture with `CTRL+C`.
 
 ---
 
+## Screenshots
+
+### Live Packet Capture (Runtime)
+
+![Runtime Execution](screenshots/ProjectRunning.png)
+
+> Raw packet data is successfully being intercepted and parsed at runtime.
+
+### HTTP Traffic Analysis (Plaintext Visibility)
+
+![HTTP Capture](screenshots/Captured_HTTP_Request.png)
+
+> Highlights the core difference between HTTP and encrypted HTTPS traffic.
+
+### Wireshark PCAP Analysis
+
+![Wireshark](screenshots/Wireshark_PCAP.png)
+
+> Validates interoperability with industry-standard network analysis tools.
+
+### Session Summary & Statistics
+
+![Final Stats](screenshots/final_stats.png)
+
+> High-level overview of network activity during the capture session.
+
+---
+
 ## Key Learning Insights
 
 - **HTTP traffic** is readable at the network level — application data is fully visible in plaintext captures
 - **HTTPS traffic** is encrypted end-to-end — only metadata is observable, not content
 - **Packet sniffing** exposes structural metadata regardless of encryption — source IPs, TTL, protocol, timing
+
+---
+
+## Limitations
+
+- HTTPS traffic cannot be decrypted due to TLS encryption
+- Requires elevated privileges to access raw packets
+- In switched networks, only traffic associated with the host is visible
+- Packet storage in memory may not scale for long captures
+- IPv6 support not included in current version
 
 ---
 
@@ -117,8 +167,10 @@ Stop capture with `CTRL+C`.
 > Unauthorized interception of network traffic is **illegal and unethical**.
 
 ---
+## Author
+
+**Ume-Habiba** · Offensive Security Practitioner & Security Researcher   
 
 ## License
 
 [MIT](LICENSE) · CodeAlpha Cybersecurity Internship
-```
